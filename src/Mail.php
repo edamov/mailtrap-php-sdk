@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace Mailtrap;
+
 class Mail
 {
     public function __construct(

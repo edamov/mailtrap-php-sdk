@@ -10,6 +10,7 @@ use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\UriFactoryInterface;
+
 final class HttpClientConfigurator
 {
     private string $endpoint = 'https://send.api.mailtrap.io';
@@ -26,7 +27,7 @@ final class HttpClientConfigurator
             new Plugin\AddHostPlugin($this->getUriFactory()->createUri($this->endpoint)),
             new Plugin\HeaderDefaultsPlugin([
                 'Authorization' => 'Bearer '.$this->apiKey,
-                'Content-Type' => 'application/json'
+                'Content-Type' => 'application/json',
             ]),
         ];
 

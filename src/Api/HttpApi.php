@@ -65,7 +65,7 @@ abstract class HttpApi
             throw HttpServerException::networkError($e);
         }
 
-        if (!in_array($response->getStatusCode(), [200, 201], true)) {
+        if (! in_array($response->getStatusCode(), [200, 201], true)) {
             $this->handleErrors($response);
         }
 
@@ -87,7 +87,7 @@ abstract class HttpApi
             throw HttpServerException::networkError($e);
         }
 
-        if (!in_array($response->getStatusCode(), [200, 201], true)) {
+        if (! in_array($response->getStatusCode(), [200, 201], true)) {
             $this->handleErrors($response);
         }
 
@@ -104,7 +104,7 @@ abstract class HttpApi
             throw HttpServerException::networkError($e);
         }
 
-        if (!in_array($response->getStatusCode(), [200, 201], true)) {
+        if (! in_array($response->getStatusCode(), [200, 201], true)) {
             $this->handleErrors($response);
         }
 
@@ -121,7 +121,7 @@ abstract class HttpApi
             throw HttpServerException::networkError($e);
         }
 
-        if (!in_array($response->getStatusCode(), [200, 201], true)) {
+        if (! in_array($response->getStatusCode(), [200, 201], true)) {
             $this->handleErrors($response);
         }
 

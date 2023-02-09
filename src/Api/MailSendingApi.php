@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace Mailtrap\Api;
+
 use Mailtrap\Mail;
 use Psr\Http\Message\ResponseInterface;
 

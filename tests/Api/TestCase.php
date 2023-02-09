@@ -71,8 +71,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
         if (null !== $this->requestMethod
             || null !== $this->requestUri
-            || !empty($this->requestHeaders)
-            || !empty($this->requestBody)
+            || ! empty($this->requestHeaders)
+            || ! empty($this->requestBody)
         ) {
             $requestClient
                 ->expects($this->once())

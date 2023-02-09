@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace Mailtrap;
+
 class Recipients
 {
     private array $collection;
