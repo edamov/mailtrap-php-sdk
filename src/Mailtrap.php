@@ -11,8 +11,6 @@ use Psr\Http\Client\ClientInterface;
 
 class Mailtrap
 {
-    private MailSendingApi $mailSendingApi;
-
     private ClientInterface $httpClient;
 
     private function __construct(HttpClientConfigurator $httpClientConfigurator)
@@ -31,11 +29,7 @@ class Mailtrap
 
     public function mailSendingApi(): MailSendingApi
     {
-        if (!$this->mailSendingApi) {
-            $this->mailSendingApi = new MailSendingApi($this->httpClient, $this->requestBuilder);
-        }
-
-        return $this->mailSendingApi;
+        return new MailSendingApi($this->httpClient, $this->requestBuilder);
     }
 }
 
