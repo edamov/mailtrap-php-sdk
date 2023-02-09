@@ -82,7 +82,7 @@ abstract class HttpApi
 
     protected function httpPost(string $path, array $parameters = [], array $requestHeaders = []): ResponseInterface
     {
-        return $this->httpPostRaw($path, $this->createRequestBody($parameters), $requestHeaders);
+        return $this->httpPostRaw($path, $parameters, $requestHeaders);
     }
 
     protected function httpPostRaw(string $path, $body, array $requestHeaders = []): ResponseInterface
@@ -106,7 +106,7 @@ abstract class HttpApi
     {
         try {
             $response = $this->httpClient->sendRequest(
-                $this->requestBuilder->create('PUT', $path, $requestHeaders, $this->createRequestBody($parameters))
+                $this->requestBuilder->create('PUT', $path, $requestHeaders, $parameters)
             );
         } catch (Psr18\NetworkExceptionInterface $e) {
             throw HttpServerException::networkError($e);
@@ -123,7 +123,7 @@ abstract class HttpApi
     {
         try {
             $response = $this->httpClient->sendRequest(
-                $this->requestBuilder->create('DELETE', $path, $requestHeaders, $this->createRequestBody($parameters))
+                $this->requestBuilder->create('DELETE', $path, $requestHeaders, $parameters)
             );
         } catch (Psr18\NetworkExceptionInterface $e) {
             throw HttpServerException::networkError($e);
@@ -134,23 +134,5 @@ abstract class HttpApi
         }
 
         return $response;
-    }
-
-    private function createRequestBody(array $parameters): array
-    {
-        $resources = [];
-        foreach ($parameters as $key => $values) {
-            if (!is_array($values)) {
-                $values = [$values];
-            }
-            foreach ($values as $value) {
-                $resources[] = [
-                    'name' => $key,
-                    'content' => $value,
-                ];
-            }
-        }
-
-        return $resources;
     }
 }
