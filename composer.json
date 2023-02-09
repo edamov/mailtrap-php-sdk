@@ -3,7 +3,8 @@
     "description": "PHP SDK for Mailtrap API",
     "keywords": [
         "Mailtrap",
-        "mailtrap-php-sdk"
+        "mailtrap-php-sdk",
+        "sdk"
     ],
     "homepage": "https://github.com/mailtrap/mailtrap-php-sdk",
     "license": "MIT",
@@ -15,11 +16,20 @@
         }
     ],
     "require": {
-        "php": "^8.1"
+        "php": "^8.1",
+        "php-http/client-common": "^2.6",
+        "php-http/discovery": "^1.14",
+        "psr/http-client": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.5",
         "friendsofphp/php-cs-fixer": "^3.13",
+        "kriswallsmith/buzz": "^1.2",
+        "nyholm/psr7": "^1.5",
+        "phpunit/phpunit": "^9.5"
+    },
+    "suggest": {
+        "kriswallsmith/buzz": "HTTP client",
+        "nyholm/psr7": "PSR-7 message implementation"
     },
     "autoload": {
         "psr-4": {
@@ -39,7 +49,8 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "php-http/discovery": true
         }
     },
     "minimum-stability": "dev",

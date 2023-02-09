@@ -1,23 +1,29 @@
-# PHP SDK for Mailtrap API
+# Mailtrap PHP SDK
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/edamov/mailtrap-php-sdk.svg?style=flat-square)](https://packagist.org/packages/mailtrap/mailtrap-php-sdk)
 [![Tests](https://img.shields.io/github/actions/workflow/status/edamov/mailtrap-php-sdk/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/mailtrap/mailtrap-php-sdk/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/edamov/mailtrap-php-sdk.svg?style=flat-square)](https://packagist.org/packages/edamov/mailtrap-php-sdk)
 
-This is where your description should go. Try and limit it to a paragraph or two. Consider adding a small example.
+Mailtrap PHP SDK is the Mailtrap API client for PHP developers.
+
+To learn more about Mailtrap, refer to the [Mailtrap API Documentation](https://api-docs.mailtrap.io/).
 
 ## Installation
 
-You can install the package via composer:
+To get started, simply require the project using [Composer](https://getcomposer.org/).<br>
+You will also need to install packages that "provide" [`psr/http-client-implementation`](https://packagist.org/providers/psr/http-client-implementation) and [`psr/http-factory-implementation`](https://packagist.org/providers/psr/http-factory-implementation).<br>
+A list with compatible HTTP clients and client adapters can be found at [php-http.org](http://docs.php-http.org/en/latest/clients.html).
 
 ```bash
-composer require edamov/mailtrap-php-sdk
+composer require edamov/mailtrap-php-sdk kriswallsmith/buzz nyholm/psr7
 ```
 
 ## Usage
 ### Base example
 ```php
+require 'vendor/autoload.php';
 use Mailtrap\Mail;
+use Mailtrap\Mailtrap;
 use Mailtrap\Recipient;
 use Mailtrap\Recipients;
 use Mailtrap\Sender;
