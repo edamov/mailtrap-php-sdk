@@ -49,3 +49,4 @@ class Mailtrap
 //2) Не зрозуміло з документації, чи обовязково відправляти name для відправника або отримувача
 //3) debug mode
 //4) examples in ReADME
+//5) tests

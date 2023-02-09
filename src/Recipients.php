@@ -7,9 +7,11 @@ class Recipients
 {
     private array $collection;
 
-    public function add(Recipient $recipient): void
+    public function add(Recipient $recipient): Recipients
     {
         $this->collection[] = $recipient;
+
+        return $this;
     }
 
     public function toArray(): array
