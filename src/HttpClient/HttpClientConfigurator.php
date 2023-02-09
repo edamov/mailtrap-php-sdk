@@ -12,25 +12,13 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\UriFactoryInterface;
 final class HttpClientConfigurator
 {
-    /**
-     * @var string
-     */
-    private $endpoint = 'https://send.api.mailtrap.io';
+    private string $endpoint = 'https://send.api.mailtrap.io';
 
-    /**
-     * @var string
-     */
-    private $apiKey;
+    private string $apiKey;
 
-    /**
-     * @var UriFactoryInterface
-     */
-    private $uriFactory;
+    private UriFactoryInterface $uriFactory;
 
-    /**
-     * @var ClientInterface
-     */
-    private $httpClient;
+    private ClientInterface $httpClient;
 
     public function createConfiguredClient(): PluginClient
     {

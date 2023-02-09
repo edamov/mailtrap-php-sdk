@@ -12,15 +12,9 @@ use Psr\Http\Message\StreamInterface;
 
 class RequestBuilder
 {
-    /**
-     * @var RequestFactoryInterface|null
-     */
-    private $requestFactory;
+    private ?RequestFactoryInterface $requestFactory;
 
-    /**
-     * @var StreamFactoryInterface|null
-     */
-    private $streamFactory;
+    private ?StreamFactoryInterface $streamFactory;
 
     public function create(string $method, string $uri, array $headers = [], $body = null): RequestInterface
     {
@@ -30,9 +24,6 @@ class RequestBuilder
         return $this->createRequest($method, $uri, $headers, $stream);
     }
 
-    /**
-     * @return RequestFactoryInterface
-     */
     private function getRequestFactory(): RequestFactoryInterface
     {
         if (null === $this->requestFactory) {
@@ -42,10 +33,6 @@ class RequestBuilder
         return $this->requestFactory;
     }
 
-    /**
-     * @param  RequestFactoryInterface $requestFactory
-     * @return $this
-     */
     public function setRequestFactory(RequestFactoryInterface $requestFactory): self
     {
         $this->requestFactory = $requestFactory;
@@ -53,9 +40,6 @@ class RequestBuilder
         return $this;
     }
 
-    /**
-     * @return StreamFactoryInterface
-     */
     private function getStreamFactory(): StreamFactoryInterface
     {
         if (null === $this->streamFactory) {
@@ -65,10 +49,6 @@ class RequestBuilder
         return $this->streamFactory;
     }
 
-    /**
-     * @param  StreamFactoryInterface $streamFactory
-     * @return $this
-     */
     public function setStreamFactory(StreamFactoryInterface $streamFactory): self
     {
         $this->streamFactory = $streamFactory;
@@ -76,13 +56,6 @@ class RequestBuilder
         return $this;
     }
 
-    /**
-     * @param  string           $method
-     * @param  string           $uri
-     * @param  array            $headers
-     * @param  StreamInterface  $stream
-     * @return RequestInterface
-     */
     private function createRequest(string $method, string $uri, array $headers, StreamInterface $stream): RequestInterface
     {
         $request = $this->getRequestFactory()->createRequest($method, $uri);
@@ -92,19 +65,5 @@ class RequestBuilder
         }
 
         return $request;
-    }
-
-    /**
-     * @param  array        $item
-     * @param  string       $key
-     * @return mixed|string
-     */
-    private function getItemValue(array $item, string $key)
-    {
-        if (is_bool($item[$key])) {
-            return (string) $item[$key];
-        }
-
-        return $item[$key];
     }
 }

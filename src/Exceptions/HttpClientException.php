@@ -9,20 +9,11 @@ use Psr\Http\Message\ResponseInterface;
 
 final class HttpClientException extends \RuntimeException implements Exception
 {
-    /**
-     * @var ResponseInterface|null
-     */
-    private $response;
+    private ?ResponseInterface $response;
 
-    /**
-     * @var array
-     */
-    private $responseBody = [];
+    private array $responseBody = [];
 
-    /**
-     * @var int
-     */
-    private $responseCode;
+    private int $responseCode;
 
     public function __construct(string $message, int $code, ResponseInterface $response)
     {

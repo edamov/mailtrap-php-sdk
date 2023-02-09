@@ -14,17 +14,9 @@ use Psr\Http\Message\ResponseInterface;
 
 abstract class HttpApi
 {
-    /**
-     * The HTTP client.
-     *
-     * @var ClientInterface
-     */
-    protected $httpClient;
+    protected ClientInterface $httpClient;
 
-    /**
-     * @var RequestBuilder
-     */
-    protected $requestBuilder;
+    protected RequestBuilder $requestBuilder;
 
     public function __construct($httpClient, RequestBuilder $requestBuilder)
     {
