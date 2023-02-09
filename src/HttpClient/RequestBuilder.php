@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Mailtrap\HttpClient;
 
 use Http\Discovery\Psr17FactoryDiscovery;
-use Http\Message\MultipartStream\MultipartStreamBuilder;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
@@ -23,48 +22,12 @@ class RequestBuilder
      */
     private $streamFactory;
 
-    /**
-     * @var MultipartStreamBuilder
-     */
-    private $multipartStreamBuilder;
-
-    /**
-     * Creates a new PSR-7 request.
-     *
-     * @param array|string|null $body Request body. If body is an array we will send a as multipart stream request.
-     *                                If array, each array *item* MUST look like:
-     *                                array (
-     *                                'content' => string|resource|StreamInterface,
-     *                                'name'    => string,
-     *                                'filename'=> string (optional)
-     *                                'headers' => array (optinal) ['header-name' => 'header-value']
-     *                                )
-     */
     public function create(string $method, string $uri, array $headers = [], $body = null): RequestInterface
     {
-        if (!is_array($body)) {
-            $stream = $this->getStreamFactory()->createStream((string) $body);
+        $stringBody = is_array($body) ? json_encode($body, JSON_THROW_ON_ERROR) : $body;
+        $stream = $this->getStreamFactory()->createStream($stringBody);
 
-            return $this->createRequest($method, $uri, $headers, $stream);
-        }
-
-        $builder = $this->getMultipartStreamBuilder();
-        foreach ($body as $item) {
-            $name = $this->getItemValue($item, 'name');
-            $content = $this->getItemValue($item, 'content');
-            unset($item['name']);
-            unset($item['content']);
-
-            $builder->addResource($name, $content, $item);
-        }
-
-        $multipartStream = $builder->build();
-        $boundary = $builder->getBoundary();
-        $builder->reset();
-
-        $headers['Content-Type'] = 'multipart/form-data; boundary="'.$boundary.'"';
-
-        return $this->createRequest($method, $uri, $headers, $multipartStream);
+        return $this->createRequest($method, $uri, $headers, $stream);
     }
 
     /**
@@ -109,29 +72,6 @@ class RequestBuilder
     public function setStreamFactory(StreamFactoryInterface $streamFactory): self
     {
         $this->streamFactory = $streamFactory;
-
-        return $this;
-    }
-
-    /**
-     * @return MultipartStreamBuilder
-     */
-    private function getMultipartStreamBuilder(): MultipartStreamBuilder
-    {
-        if (null === $this->multipartStreamBuilder) {
-            $this->multipartStreamBuilder = new MultipartStreamBuilder();
-        }
-
-        return $this->multipartStreamBuilder;
-    }
-
-    /**
-     * @param  MultipartStreamBuilder $multipartStreamBuilder
-     * @return $this
-     */
-    public function setMultipartStreamBuilder(MultipartStreamBuilder $multipartStreamBuilder): self
-    {
-        $this->multipartStreamBuilder = $multipartStreamBuilder;
 
         return $this;
     }

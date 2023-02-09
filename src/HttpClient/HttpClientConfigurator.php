@@ -38,6 +38,7 @@ final class HttpClientConfigurator
             new Plugin\AddHostPlugin($this->getUriFactory()->createUri($this->endpoint)),
             new Plugin\HeaderDefaultsPlugin([
                 'Authorization' => 'Bearer '.$this->apiKey,
+                'Content-Type' => 'application/json'
             ]),
         ];
 
