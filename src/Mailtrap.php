@@ -32,15 +32,3 @@ class Mailtrap
         return new MailSendingApi($this->httpClient, $this->requestBuilder);
     }
 }
-
-//
-//
-//Issues:
-//1) https://help.mailtrap.io/article/103-api-tokens
-//- You can also give Account Amin access to the token and get access to all Projects, Inboxes, and domains on that account.
-//- them in the API tokens page
-//- in case of SMTP integration
-//2) Не зрозуміло з документації, чи обовязково відправляти name для відправника або отримувача
-//3) debug mode
-//4) examples in ReADME
-//5) tests
