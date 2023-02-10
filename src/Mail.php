@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Mailtrap;
 
+use Webmozart\Assert\Assert;
+use Webmozart\Assert\InvalidArgumentException;
+
 class Mail
 {
     public function __construct(
@@ -13,14 +16,18 @@ class Mail
         private readonly string     $text = '',
         private readonly string     $html = ''
     ) {
-        //todo: validate that at least text or html is not empty
-        //todo: validate that subject is not empty
-    }
+        Assert::minLength($subject, 1);
+        if ($text) {
+            Assert::minLength($text, 1);
+        }
 
-    public static function fromArray(array ...$params): self
-    {
-        //todo: validate all required parameters: from, to, subject, one of text or html
-        //todo: create instance of Mail class
+        if ($html) {
+            Assert::minLength($html, 1);
+        }
+
+        if (empty($text) && empty($html)) {
+            throw new InvalidArgumentException('At least one of the "text" or "html" should be present');
+        }
     }
 
     public function toRequestParams(): array

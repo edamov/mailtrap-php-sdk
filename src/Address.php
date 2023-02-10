@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Mailtrap;
 
+use Webmozart\Assert\Assert;
+
 class Address
 {
     public function __construct(
         public readonly string $email,
         public readonly string $name = '',
     ) {
-        //todo: validate email
+        Assert::email($this->email);
     }
 
     public function toArray()
